@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import statsmodels.api as sm
+import numpy as np
 
 os.chdir('/home/hernandes/Documentos/Cursos/12 - Pos Graduação PUC Minas/13 - Modelos Estatísticos')
 
@@ -29,10 +30,12 @@ print(data.cov())
 print("\nCorrelação dos Dados")
 print(data.corr())
 
-# plt.scatter(data["YearsExperience"], data["Salary"])
-# plt.xlabel("Anos de Experiência")
-# plt.ylabel("Salário Anual em Dólares")
+#Plot data
+plt.scatter(data["YearsExperience"], data["Salary"])
+plt.xlabel("Anos de Experiência")
+plt.ylabel("Salário Anual em Dólares")
 
+#Linear Regression
 Y = data["Salary"]
 X1 = data["YearsExperience"]
 X2 = sm.add_constant(data["YearsExperience"])
@@ -44,3 +47,10 @@ print("\nParâmetros sem Interseção\n{}".format(results1.params))
 print("\nParâmetros com Interseção\n{}".format(results2.params))
 print(results1.summary())
 print(results2.summary())
+
+#Plot linear regression results
+Xmax = max(X1)
+model1_2p = np.array([[0,0],[Xmax,results1.params["YearsExperience"]*Xmax]])
+model2_2p = np.array([[0,results2.params["const"]],[Xmax,results2.params["YearsExperience"]*Xmax+results2.params["const"]]])
+plt.plot(model1_2p[:,0],model1_2p[:,1],color="red")
+plt.plot(model2_2p[:,0],model2_2p[:,1],color="green")
