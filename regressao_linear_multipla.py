@@ -1,9 +1,7 @@
 import pandas as pd
-import numpy as np
 import os
 import statsmodels.stats.api as sms
 import statsmodels.formula.api as smf
-from statsmodels.compat import lzip
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.tools.tools import add_constant
 import matplotlib.pyplot as plt
